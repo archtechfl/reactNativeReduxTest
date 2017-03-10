@@ -43,6 +43,8 @@ class GeoLocation extends React.Component {
                 }
             }
         }
+        store.dispatch(action);
+        console.log('initial position', store.getState());
       },
       (error) => alert(JSON.stringify(error)),
       {enableHighAccuracy: true, timeout: 20000, maximumAge: 1000}
@@ -58,7 +60,8 @@ class GeoLocation extends React.Component {
                 }
             }
         }
-        // const nextState = location(state, action);
+        store.dispatch(action);
+        console.log('next position', store.getState());
     });
   }
 
