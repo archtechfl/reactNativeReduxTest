@@ -1,9 +1,15 @@
 import C from '../constants';
 import { combineReducers } from 'redux';
 
-export const location = (state=null, action) =>
+export const latitude = (state=null, action) =>
 
-	(action.type === C.SET_LOCATION) ?
+	(action.type === C.SET_LATITUDE) ?
+		action.payload :
+		state
+
+export const longitude = (state=null, action) =>
+
+	(action.type === C.SET_LONGITUDE) ?
 		action.payload :
 		state
 

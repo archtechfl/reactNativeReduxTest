@@ -10,7 +10,7 @@ import { Provider } from 'react-redux'
 
 let store = createStore(allReducers, initialState);
 
-console.log('initial state', store.getState());
+console.log("initial state: " + JSON.stringify(store.getState()));
 
 class HelloWorldApp extends Component {
   render() {
@@ -31,20 +31,25 @@ class GeoLocation extends React.Component {
 
   componentDidMount() {
 
+    store.subscribe(() => console.log(store.getState()))
+
     navigator.geolocation.getCurrentPosition(
       (position) => {
         var initialPosition = position;
         var action = {
-            type: C.SET_LOCATION,
+            type: C.SET_LATITUDE,
             payload: {
-                position: {
-                    "latitude": initialPosition.coords.latitude,
-                    "longitude": initialPosition.coords.longitude   
-                }
+                "latitude": initialPosition.coords.latitude,
             }
         }
         store.dispatch(action);
-        console.log('initial position', store.getState());
+        var action = {
+            type: C.SET_LONGITUDE,
+            payload: {
+                "longitude": initialPosition.coords.longitude
+            }
+        }
+        store.dispatch(action);
       },
       (error) => alert(JSON.stringify(error)),
       {enableHighAccuracy: true, timeout: 20000, maximumAge: 1000}
@@ -52,16 +57,19 @@ class GeoLocation extends React.Component {
     this.watchID = navigator.geolocation.watchPosition((position) => {
         var lastPosition = position;
         var action = {
-            type: C.SET_LOCATION,
+            type: C.SET_LATITUDE,
             payload: {
-                position: {
-                    "latitude": lastPosition.coords.latitude,
-                    "longitude": lastPosition.coords.longitude   
-                }
+                "latitude": lastPosition.coords.latitude,
             }
         }
         store.dispatch(action);
-        console.log('next position', store.getState());
+        var action = {
+            type: C.SET_LONGITUDE,
+            payload: {
+                "longitude": lastPosition.coords.longitude
+            }
+        }
+        store.dispatch(action);
     });
   }
 
