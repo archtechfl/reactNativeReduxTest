@@ -14,5 +14,6 @@ export const longitude = (state=null, action) =>
 		state
 
 export default combineReducers({
-  	location
+  	latitude,
+  	longitude
 })

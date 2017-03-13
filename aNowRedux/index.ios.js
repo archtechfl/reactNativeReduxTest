@@ -38,16 +38,12 @@ class GeoLocation extends React.Component {
         var initialPosition = position;
         var action = {
             type: C.SET_LATITUDE,
-            payload: {
-                "latitude": initialPosition.coords.latitude,
-            }
+            payload: initialPosition.coords.latitude
         }
         store.dispatch(action);
         var action = {
             type: C.SET_LONGITUDE,
-            payload: {
-                "longitude": initialPosition.coords.longitude
-            }
+            payload: initialPosition.coords.longitude
         }
         store.dispatch(action);
       },
@@ -58,16 +54,12 @@ class GeoLocation extends React.Component {
         var lastPosition = position;
         var action = {
             type: C.SET_LATITUDE,
-            payload: {
-                "latitude": lastPosition.coords.latitude,
-            }
+            payload: lastPosition.coords.latitude
         }
         store.dispatch(action);
         var action = {
             type: C.SET_LONGITUDE,
-            payload: {
-                "longitude": lastPosition.coords.longitude
-            }
+            payload: lastPosition.coords.longitude
         }
         store.dispatch(action);
     });
