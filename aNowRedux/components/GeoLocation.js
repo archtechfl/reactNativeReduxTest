@@ -1,19 +1,27 @@
 import React, { Component } from 'react';
-import { AppRegistry, Text, StyleSheet, View } from 'react-native';
+import { AppRegistry, Text, StyleSheet, View, Dimensions } from 'react-native';
 
 import C from '../constants';
 import { Provider, connect } from 'react-redux'
 
 const styles = StyleSheet.create({
-  container: {
-    marginTop: 20,
-    backgroundColor: 'blue',
-    flex: 1,
-    justifyContent: 'center', 
-    alignItems: 'center', 
-  },
   title: {
-    fontSize: 14
+    fontSize: 14,
+    flex: 0,
+    lineHeight: 24
+  },
+  coordinates: {
+    fontSize: 18,
+    flex: 0,
+    lineHeight: 24
+  },
+  viewContainer: {
+    borderWidth: 1,
+    padding: 5,
+    marginTop: 5,
+    width: Dimensions.get('window').width * 1,
+    flexDirection: 'row',
+    justifyContent: 'center'
   }
 });
 
@@ -61,11 +69,9 @@ class GeoLocation extends React.Component {
 
   render() {
     return (
-      <View>
-        <Text>
-          <Text style={styles.title}>Latest position: </Text>
-          {this.displayPosition()}
-        </Text>
+      <View style={styles.viewContainer}>
+        <Text style={styles.title}>Latest position: </Text>
+        <Text style={styles.coordinates}>{this.displayPosition()}</Text>
       </View>
     );
   }
