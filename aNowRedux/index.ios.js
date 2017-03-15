@@ -4,13 +4,14 @@ import { AppRegistry, Text, StyleSheet, View } from 'react-native';
 // Redux
 import C from './constants';
 import allReducers from './store/reducers'
-import { initialState } from './initialState.json'
 import { createStore } from 'redux'
-import { Provider } from 'react-redux'
+import { Provider, connect } from 'react-redux'
 
-let store = createStore(allReducers, initialState);
+// Component
+import GeoLocation from './components/GeoLocation'
 
-console.log("initial state: " + JSON.stringify(store.getState()));
+const store = createStore(allReducers);
+window.store = store
 
 class HelloWorldApp extends Component {
   render() {
@@ -25,78 +26,10 @@ class HelloWorldApp extends Component {
   }
 }
 
-class GeoLocation extends React.Component {
-
-  watchID: ?number = null;
-
-  componentDidMount() {
-
-    store.subscribe(() => console.log(store.getState()))
-
-    navigator.geolocation.getCurrentPosition(
-      (position) => {
-        var initialPosition = position;
-        var action = {
-            type: C.SET_LOCATION,
-            payload: {
-                "latitude": initialPosition.coords.latitude,
-                "longitude": initialPosition.coords.longitude
-            }
-        }
-        store.dispatch(action);
-      },
-      (error) => alert(JSON.stringify(error)),
-      {enableHighAccuracy: true, timeout: 20000, maximumAge: 1000}
-    );
-    this.watchID = navigator.geolocation.watchPosition((position) => {
-        var lastPosition = position;
-        var action = {
-            type: C.SET_LOCATION,
-            payload: {
-                "latitude": lastPosition.coords.latitude,
-                "longitude": lastPosition.coords.longitude
-            }
-        }
-        store.dispatch(action);
-    });
-  }
-
-  componentWillUnmount() {
-    navigator.geolocation.clearWatch(this.watchID);
-  }
-
-  displayPosition() {
-    return "hello";
-    // let position = state.initialPosition.coords;
-    // if (state.lastPosition !== "unknown") {
-    //     position = state.lastPosition.coords;
-    // } else if (state.initialPosition !== "unknown") {
-    //     position = state.initialPosition.coords;
-    // } else {
-    //     position = {
-    //         "latitude": 0,
-    //         "longitude": 0,
-    //     };
-    // }
-    // return `${position.latitude}, ${position.longitude}`;
-  }
-
-  render() {
-    return (
-      <View>
-        <Text>
-          <Text style={styles.title}>Latest position: </Text>
-          {this.displayPosition()}
-        </Text>
-      </View>
-    );
-  }
-}
-
 const styles = StyleSheet.create({
   container: {
     marginTop: 20,
-    backgroundColor: 'blue',
+    backgroundColor: 'lightblue',
     flex: 1,
     justifyContent: 'center', 
     alignItems: 'center', 
