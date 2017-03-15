@@ -37,13 +37,11 @@ class GeoLocation extends React.Component {
       (position) => {
         var initialPosition = position;
         var action = {
-            type: C.SET_LATITUDE,
-            payload: initialPosition.coords.latitude
-        }
-        store.dispatch(action);
-        var action = {
-            type: C.SET_LONGITUDE,
-            payload: initialPosition.coords.longitude
+            type: C.SET_LOCATION,
+            payload: {
+                "latitude": initialPosition.coords.latitude,
+                "longitude": initialPosition.coords.longitude
+            }
         }
         store.dispatch(action);
       },
@@ -53,13 +51,11 @@ class GeoLocation extends React.Component {
     this.watchID = navigator.geolocation.watchPosition((position) => {
         var lastPosition = position;
         var action = {
-            type: C.SET_LATITUDE,
-            payload: lastPosition.coords.latitude
-        }
-        store.dispatch(action);
-        var action = {
-            type: C.SET_LONGITUDE,
-            payload: lastPosition.coords.longitude
+            type: C.SET_LOCATION,
+            payload: {
+                "latitude": lastPosition.coords.latitude,
+                "longitude": lastPosition.coords.longitude
+            }
         }
         store.dispatch(action);
     });

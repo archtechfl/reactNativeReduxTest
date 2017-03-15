@@ -1,4 +1,6 @@
 {
-	"latitude": 0,
-	"longitude": 0
+	"position": {
+		"latitude": 0,
+		"longitude": 0
+	}
 }
