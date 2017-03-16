@@ -64,7 +64,11 @@ class GeoLocation extends React.Component {
   }
 
   displayPosition() {
-    return `${this.props.latitude}, ${this.props.longitude}`;
+      let {
+          latitude,
+          longitude
+        } = this.props;
+    return `${latitude}, ${longitude}`;
   }
 
   render() {
